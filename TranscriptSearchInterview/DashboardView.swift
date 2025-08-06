@@ -28,6 +28,7 @@ struct DashboardView: View {
                 
             case .transcripts:
                 TranscriptView()
+                .padding(16)
             }
             
             

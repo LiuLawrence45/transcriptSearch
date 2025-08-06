@@ -24,12 +24,13 @@ public struct TranscriptView: View {
                     .foregroundColor(.red)
             case .complete(let transcripts):
                 
-                ScrollView {
-                    ForEach(transcripts) { transcript in
-                        TranscriptCard(transcript: transcript)
-                        
-                    }
-                }
+                  ScrollView {
+      LazyVStack {
+          ForEach(transcripts) { transcript in
+              TranscriptRow(transcript: transcript)
+          }
+      }
+  }
             }
         }
         .frame(maxWidth: .infinity)
@@ -39,10 +40,36 @@ public struct TranscriptView: View {
     }
     
     
-    private struct TranscriptCard: View {
+    private struct TranscriptRow: View {
         let transcript: Transcript
         var body: some View {
-            Text(transcript.text)
+            VStack(alignment: .leading, spacing: 16) {
+                HStack {
+                    Text(transcript.application)
+                        .font(.system(size: 12, weight: .medium))
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 6)
+                        .background(
+                            RoundedRectangle(cornerRadius: 6)
+                                .fill(Color.gray.opacity(0.2))
+                        )
+                    
+                    Spacer()
+                    
+                    Text(transcript.formattedDate)
+                        .font(.system(size: 12))
+                        .foregroundStyle(Color.gray)
+                }
+                
+                Text(transcript.text)
+                    .font(.system(size: 14))
+            }
+            .padding(.vertical, 14)
+            .padding(.horizontal, 16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+            )
         }
     }
 }
