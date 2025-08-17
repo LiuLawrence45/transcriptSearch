@@ -28,7 +28,7 @@ struct DashboardView: View {
                 
             case .transcripts:
                 TranscriptView()
-                .padding(16)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             
             
